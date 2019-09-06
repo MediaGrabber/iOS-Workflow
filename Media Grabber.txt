@@ -1,0 +1,273 @@
+@Icon playvideo
+@Color red
+Comment "Version    : 1.3.5\nGithub     : @MediaGrabber\nTelegram : @ShortcutsApps\n\n|| Made with ❤️ by Sayem ||"
+Comment "A partial list of supported sites is available here: https://kutt.it/mgsites\n\nReport any issue on github."
+If input=Contains value=s:shortcutinput
+Otherwise
+	GetClipboard -> mv:"Get Clipboard"
+	MatchText pattern="https?://.*" caseSensitive=false -> mv:"Match Text"
+	Comment "Keep it to yes to suppress url prompts. It is helpful when your run from widget for background downloads."
+	Text No -> mv:Text
+	SetVariable WidgetMode
+	If value=Yes
+		Text mv:"Get Clipboard" -> mv:Text1
+	Otherwise
+		AskforInput question="Enter url or query" defaultAnswer=mv:"Match Text" inputType=Text -> mv:"Ask for Input"
+	End
+End -> mv:If
+MatchText pattern="^.+?(?=\\&t|\\&list)|^.*" caseSensitive=false -> mv:"Match Text1"
+SetVariable InputURL
+MatchText pattern=".*(twitter.com|vk.com|dailymotion.com|dai.ly|alive.in.th|weibo.cn|ubicast.tv|apple.com|funnyordie.com|tumblr.com|videofy.me|orfium.com|spreaker.com|smosh.com|mirror.co.uk|manchestereveningnews.co.uk|pbslearningmedia.org|livestreamfails.com|zeit.de|stream.me).*" caseSensitive=false -> mv:"Match Text2"
+If input=Contains value=mv:"Match Text2"
+	GetComponentofURL Host -> mv:"Get Component of URL"
+	MatchText pattern="twitter.com|tumblr.com|dailymotion.com" caseSensitive=false -> mv:"Match Text3"
+	If value=mv:"Match Text3"
+		If input=Equals value="twitter.com"
+			GetVariable v:InputURL
+			MatchText pattern="[0-9]{16,}" caseSensitive=false -> mv:"Match Text4"
+			URL "https://api.twitter.com/1.1/statuses/show.json?tweet_mode=extended&id=\(mv:"Match Text4")" -> mv:URL
+			GetContentsofURL advanced=false headers=true headers2={Authorization: "Bearer AAAAAAAAAAAAAAAAAAAAAE306wAAAAAA36Mv3CcyOwbTQIaPnQO77gINgMo%3D9rGZZoPDYZ9bhKHz2WkMe3Nn8Fv2QEFucYL3QYJ1DZiuCGfKbh"} -> mv:"Get Contents of URL"
+		End -> mv:If1
+		If input=Equals value="tumblr.com"
+			GetVariable v:InputURL
+			MatchText pattern="[0-9]{12,}" caseSensitive=false -> mv:"Match Text5"
+			URL "https://api.tumblr.com/v2/blog/\(mv:"Get Component of URL")/posts/video?api_key=rdlmV7PoHOUVOPPGutXaQ1QkO7xDRZENPKiWAgKWTXooeqwo7M&id=\(mv:"Match Text5")" -> mv:URL1
+			GetContentsofURL advanced=false -> mv:"Get Contents of URL1"
+		End -> mv:If2
+		If input=Equals value="dailymotion.com"
+			URL "\(v:InputURL)&locale=en&integration=inline&GK_PV5_NEON=1" -> mv:URL2
+			GetContentsofURL
+			MakeHTMLfromRichText
+		End
+	Otherwise
+		GetVariable v:InputURL
+		GetContentsofURL advanced=false headers=true headers2={"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) CriOS/67.0.3396.87 Mobile/16A5318d Safari/604.1"} -> mv:"Get Contents of URL2"
+		MakeHTMLfromRichText -> mv:"Make HTML from Rich Text"
+	End -> mv:If3
+	ReplaceText findText="\\" replaceWith="" caseSensitive=false -> mv:"Replace Text"
+	ReplaceText findText="href=\"/" replaceWith="\(mv:"Get Component of URL")/" caseSensitive=false regularExpression=false -> mv:"Replace Text1"
+	GetURLsfromInput -> mv:"Get URLs from Input"
+	CombineText separator="New Lines" -> mv:"Combine Text"
+	ReplaceText findText="(?sm)(^[^\\r\\n]*)[\\r\\n](?=.*^\\1)" replaceWith="" caseSensitive=false regularExpression=true -> mv:"Replace Text2"
+	MatchText pattern="(https?).*?(\\.mp4|/video_file/|\\.m4v|\\.mov|\\.mp3|\\.aac|\\.m4a).*" caseSensitive=false -> mv:"Match Text6"
+	RepeatwithEach
+		MatchText pattern="mp4|mp3|m4a|aac|m4v|mov+$" caseSensitive=false -> mv:"Match Text7"
+		If value=mv:"Match Text7"
+		Otherwise
+			Text mp4
+		End -> mv:If4
+		SetVariable FileEXT
+		Text "{\"format\":\"\(v:"Repeat Index") - unknown\",\"filesize\":0,\"ext\":\"\(v:FileEXT)\",\"url\":\"\(v:"Repeat Item")\"}" -> mv:Text2
+		AddtoVariable DictInfo
+	End -> mv:"Repeat with Each"
+End -> mv:If5
+Comment "Get json results from our backend server. The json results include all the information needed to download videos."
+Count Items -> mv:Count
+If input=Equals value=0
+	GetVariable v:InputURL
+	URLEncode Encode -> mv:"URL Encode"
+	Text "http://yt.loaderapp.info/info/\(mv:"URL Encode")" -> mv:Text3
+	GetContentsofURL advanced=false
+	SetVariable FetchedJSON
+	If value="\"error\""
+		Comment "Errors have json value. This errors are usually from youtube-dl installed on backend server. Errors will be displayed with alert option."
+		ShowAlert title=v:FetchedJSON.error message="\(v:FetchedJSON.message)\n\nQuery: \(v:InputURL)" showCancelButton=false
+		If value=update_url
+			URL v:FetchedJSON.update_url -> mv:URL3
+			OpenURLs
+			ExitShortcut
+		End -> mv:If6
+		SetVariable Alert
+	Otherwise
+		GetVariable v:FetchedJSON
+		Comment "Parse json for getting information on video url, title and formats."
+		GetDictionaryfromInput -> mv:"Get Dictionary from Input"
+		SetVariable DictInfo
+		If value="\"mgalert\":"
+			GetDictionaryValue key=mgalert -> mv:"Get Dictionary Value"
+			SetVariable "MG Alert"
+			GetDictionaryValue key=type -> mv:"Get Dictionary Value1"
+			If input=Contains value=notification
+				ShowNotification body=v:"MG Alert".message
+			End -> mv:If7
+			If input=Contains value=alert
+				ShowAlert title="" message=v:"MG Alert".message showCancelButton=false
+			End
+			GetVariable v:DictInfo
+		End
+		Count v:DictInfo -> mv:Count1
+		If input="Is Greater Than" number=1
+			GetVariable v:DictInfo
+			RepeatwithEach
+				Text v:"Repeat Item" -> mv:Text4
+				SetName name=v:"Repeat Item".title -> mv:"Set Name"
+				AddtoVariable ChooseDict
+			End -> mv:"Repeat with Each1"
+			GetVariable v:ChooseDict
+			ChoosefromList prompt="Choose a video" -> mv:"Choose from List"
+			SetVariable DictInfo
+		End -> mv:If8
+		Comment "Remove any illegal characters from title and replace with \"_\" for saving file."
+		Text v:DictInfo.title -> mv:Text5
+		ReplaceText findText="[/:|;\",\\\\*']" replaceWith=_ caseSensitive=true regularExpression=true -> mv:"Replace Text3"
+		SetVariable DictTitle
+		Text v:DictInfo.http_headers
+		SetVariable Headers
+		GetVariable v:DictInfo
+		GetDictionaryValue key=formats -> mv:"Get Dictionary Value2"
+		SetVariable Formats
+		Comment "Check if json results only have one single video or multiple."
+		Count Items -> mv:Count2
+		If input="Is Greater Than" number=0 value=0
+			GetVariable v:Formats
+			SetVariable DictInfo
+		End -> mv:If9
+	End -> mv:If10
+End -> mv:If11
+Comment "Organise each video and audio with format and links for downloading at the next step."
+GetVariable v:DictInfo
+RepeatwithEach
+	SetVariable FormatJSON
+	GetDictionaryValue key=ext
+	SetVariable EXT
+	Comment "Only support/show videos or audios with these format."
+	MatchText pattern="mp4|m4v|mov|mkv|avi|m4a|mp3|aac|wav|flac" caseSensitive=false -> mv:"Match Text8"
+	If value=mv:"Match Text8"
+		Text v:FormatJSON.acodec
+		If value=none
+			Comment "If video doesn't have any audio then skip adding to the list."
+			Nothing
+		Otherwise
+			Text v:FormatJSON.url
+			SetVariable URL
+			If value=".m3u"
+				Nothing
+			Otherwise
+				Number v:FormatJSON.filesize
+				Comment "Get file-size in bytes and then format them in MB. If file-size information is not found in json then make a header request."
+				If input="Is Less Than" number=10000
+					URL v:URL
+					GetHeadersofURL -> mv:"Get Headers of URL"
+					Number mv:"Get Headers of URL"."Content-Length" -> mv:Number
+				End
+				FormatFileSize format=MB includeUnits=false -> mv:"Format File Size"
+				If input="Is Greater Than" number=0 value=MB
+					Text "\(v:EXT) - \(mv:"Format File Size")M"
+				Otherwise
+					Text v:EXT
+				End
+				SetVariable FormattedName
+				Text v:FormatJSON.format
+				If value="- unknown"
+					GetVariable v:URL
+					MatchText pattern="\\d{3,4}x\\d{3,4}|(\\w+)(\\.\\w+)+(?!.*(\\w+)(\\.\\w+)+)" caseSensitive=false
+					CombineText separator=Custom custom=" - "
+				End
+				Comment "Remove anything inside brackets including brackets. We will add extension information inside brackets later. There is a space before first brackets."
+				ReplaceText findText=" \\(.*?\\)" replaceWith="" caseSensitive=false regularExpression=true -> mv:"Replace Text4"
+				SetVariable DFormat
+				Text "\(v:FormattedName) | \(v:DFormat)\n\n{\"format_id\":\"\(v:FormatJSON.format_id)\",\"ext\":\"\(v:EXT)\",\"url\":\"\(v:URL)\"}" -> mv:Text6
+				AddtoVariable ListURL
+			End
+		End
+	End -> mv:If12
+End -> mv:"Repeat with Each2"
+Text "Skip Download\n\n{\"url\":\"https://skip.download\"}" -> mv:Text7
+AddtoVariable ListURL
+Count Items -> mv:Count3
+Comment "If no downloadable link found show error with alert box and then stop executing further."
+If input="Is Less Than" number=2
+	GetVariable v:Alert
+	If input=Contains value=v:Alert
+	Otherwise
+		ShowAlert title="Oops!" message="No download links found.\n\nURL: \(v:InputURL)" showCancelButton=false
+	End -> mv:If13
+Otherwise
+	GetVariable v:ListURL
+	ChoosefromList prompt=v:DictTitle -> mv:"Choose from List1"
+	MatchText pattern="\\{.*"
+	SetVariable Selected_Item
+	GetDictionaryValue key=url -> mv:"Get Dictionary Value3"
+	If value="skip.download"
+	Otherwise
+		SetVariable FinalURL
+		Comment "Choose default action. Case sensitive.\n    Ask/Download/Copy"
+		Text Download -> mv:Text8
+	End -> mv:If14
+	If input=Contains value=Ask
+		List [Download, "Copy Link", "Do Nothing"] -> mv:List
+		ChoosefromList prompt=v:FinalURL -> mv:"Choose from List2"
+	End -> mv:If15
+	Comment "Proceed with either download, copy or nothing."
+	If input=Contains value=Download
+		GetVariable v:FinalURL
+		Comment "Downloading selected quality! If the video is large and your internet speed is slow then you might experience timeout error."
+		GetContentsofURL advanced=false headers=true headers2={"User-Agent": v:Headers."User-Agent", Cookie: v:Headers.Cookie} -> mv:"Get Contents of URL4"
+		SetName name=v:DictTitle advanced=false -> mv:"Set Name1"
+		SetVariable Downloaded_File
+		GetDetailsofFiles "File Extension" -> mv:"Get Details of Files"
+		Comment "If file extension is any of this, display error. These are webpages or text file so the file was not actually downloaded."
+		MatchText pattern="html|htm|txt|xml|m3u|json" caseSensitive=false -> mv:"Match Text9"
+		If value=mv:"Match Text9"
+			ShowAlert title="Oops!" message="Cannot download this file 😣" showCancelButton=false
+		Otherwise
+			Comment "Choose default action after download. Case sensitive.\n  Ask/Save/Open/Preview\n  Browser/iCloud"
+			GetVariable v:WidgetMode
+			If value=Yes
+				Text Save -> mv:Text11
+			Otherwise
+				Text Ask -> mv:Text12
+			End -> mv:If17
+			If input=Contains value=Ask
+				ShowNotification title="Media Grabber" body="Download finished. Choose an option from list..."
+				List ["Save to Camera Roll", "Open in..", Preview, "Export to Browser app", "Store in iCloud", "Convert videos.."] -> mv:List1
+				ChoosefromList prompt=v:DictTitle selectMultiple=false -> mv:"Choose from List3"
+			End -> mv:If18
+			If value=iCloud
+				CreateFolder path="Media Grabber/"
+				GetVariable v:Downloaded_File
+				SaveFile askWheretoSave=false destinationPath="Media Grabber/" -> mv:"Save File"
+				Nothing
+				ShowNotification title="Media Grabber" body="Your file \(v:DictTitle) has been saved to iCloud. "
+			End -> mv:If19
+			If value=Convert
+				GetVariable v:Downloaded_File
+				EncodeMedia audioOnly=s:askWhenRun size=s:askWhenRun metadata=false -> mv:"Encode Media"
+				ShowNotification title="Media Grabber" body="Conversion successful. To save, click the arrow up button on quick look view."
+				QuickLook
+				Nothing
+			End
+			If input=Contains value=Save
+				GetVariable v:Downloaded_File
+				SavetoPhotoAlbum -> mv:"Save to Photo Album"
+				Nothing
+				ShowNotification title="Media Grabber" body="Your file \(v:DictTitle) has been saved to photos > camera roll. "
+			End -> mv:If20
+			If input=Contains value=Open
+				GetVariable v:Downloaded_File
+				OpenIn
+				Nothing
+			End -> mv:If21
+			If input=Contains value=Preview
+				Comment "File can also be saved from quick look using share button."
+				GetVariable v:Downloaded_File
+				QuickLook
+				Nothing
+			End -> mv:If22
+			If input=Contains value=Browser
+				ShowNotification title="Media Grabber" body="Your file \(v:DictTitle) has been saved to Browser > Inbox folder."
+				GetVariable v:Downloaded_File
+				Comment "I use Browser app for saving my files. If you have any documents viewer you can select your apps here for saving to it."
+				OpenIn showOpenInMenu=false app="com.eilvera.idwl"
+			End
+			GetVariable v:FinalURL
+		End -> mv:If23
+	End -> mv:If24
+	Comment "Link will be copied to clipboard for downloading with external apps or sharing it with anyone."
+	If value=Copy
+		GetVariable v:FinalURL
+		CopytoClipboard
+		ShowAlert title="Done!" message="Link has been copied." showCancelButton=false
+	End
+End -> mv:If25
+Comment "\nExecution is complete. If you find any errors, report it on our telegram group @ShortcutsApps"
