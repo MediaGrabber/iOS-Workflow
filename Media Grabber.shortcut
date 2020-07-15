@@ -10,7 +10,7 @@
 			<key>WFWorkflowActionParameters</key>
 			<dict>
 				<key>WFCommentActionText</key>
-				<string>Version    : 2.0.0 beta 1
+				<string>Version    : 2.0.0 beta 2
 Github     : @MediaGrabber
 Telegram : @ShortcutsApps
 
@@ -349,7 +349,7 @@ Telegram : @ShortcutsApps
 										<key>attachmentsByRange</key>
 										<dict/>
 										<key>string</key>
-										<string>1</string>
+										<string>2</string>
 									</dict>
 									<key>WFSerializationType</key>
 									<string>WFTextTokenString</string>
@@ -528,7 +528,7 @@ Telegram : @ShortcutsApps
 									</dict>
 									<dict>
 										<key>DictionaryKey</key>
-										<string>error</string>
+										<string>message</string>
 										<key>Type</key>
 										<string>WFDictionaryValueVariableAggrandizement</string>
 									</dict>
@@ -563,7 +563,7 @@ Telegram : @ShortcutsApps
 									</dict>
 									<dict>
 										<key>DictionaryKey</key>
-										<string>message</string>
+										<string>error</string>
 										<key>Type</key>
 										<string>WFDictionaryValueVariableAggrandizement</string>
 									</dict>
@@ -757,6 +757,76 @@ Telegram : @ShortcutsApps
 		</dict>
 		<dict>
 			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.detect.text</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>UUID</key>
+				<string>F3ADF798-18BD-4387-BCE0-7FFA35981681</string>
+				<key>WFInput</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>Aggrandizements</key>
+						<array>
+							<dict>
+								<key>CoercionItemClass</key>
+								<string>WFDictionaryContentItem</string>
+								<key>Type</key>
+								<string>WFCoercionVariableAggrandizement</string>
+							</dict>
+							<dict>
+								<key>DictionaryKey</key>
+								<string>protocol</string>
+								<key>Type</key>
+								<string>WFDictionaryValueVariableAggrandizement</string>
+							</dict>
+						</array>
+						<key>Type</key>
+						<string>Variable</string>
+						<key>VariableName</key>
+						<string>Repeat Item</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenAttachment</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>05303BBB-AEB6-4DD3-99ED-ADA1ADD45E76</string>
+				<key>WFCondition</key>
+				<integer>5</integer>
+				<key>WFConditionalActionString</key>
+				<string>m3u8_native</string>
+				<key>WFControlFlowMode</key>
+				<integer>0</integer>
+				<key>WFInput</key>
+				<dict>
+					<key>Type</key>
+					<string>Variable</string>
+					<key>Variable</key>
+					<dict>
+						<key>Value</key>
+						<dict>
+							<key>OutputName</key>
+							<string>Text</string>
+							<key>OutputUUID</key>
+							<string>F3ADF798-18BD-4387-BCE0-7FFA35981681</string>
+							<key>Type</key>
+							<string>ActionOutput</string>
+						</dict>
+						<key>WFSerializationType</key>
+						<string>WFTextTokenAttachment</string>
+					</dict>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
 			<string>is.workflow.actions.setitemname</string>
 			<key>WFWorkflowActionParameters</key>
 			<dict>
@@ -813,6 +883,44 @@ Telegram : @ShortcutsApps
 		</dict>
 		<dict>
 			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.appendvariable</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>UUID</key>
+				<string>61E38C16-6831-406D-8AA4-0234190305B4</string>
+				<key>WFInput</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>OutputName</key>
+						<string>Renamed Item</string>
+						<key>OutputUUID</key>
+						<string>7A440FF1-9F3D-4C65-8965-A29D42ACE620</string>
+						<key>Type</key>
+						<string>ActionOutput</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenAttachment</string>
+				</dict>
+				<key>WFVariableName</key>
+				<string>Items</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>05303BBB-AEB6-4DD3-99ED-ADA1ADD45E76</string>
+				<key>UUID</key>
+				<string>0A2313A6-0F7C-4E72-8EEB-7F3450DC3155</string>
+				<key>WFControlFlowMode</key>
+				<integer>2</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
 			<string>is.workflow.actions.repeat.each</string>
 			<key>WFWorkflowActionParameters</key>
 			<dict>
@@ -835,12 +943,10 @@ Telegram : @ShortcutsApps
 				<dict>
 					<key>Value</key>
 					<dict>
-						<key>OutputName</key>
-						<string>Repeat Results</string>
-						<key>OutputUUID</key>
-						<string>EC151250-E61A-4B6D-B80E-74997DFEC54D</string>
 						<key>Type</key>
-						<string>ActionOutput</string>
+						<string>Variable</string>
+						<key>VariableName</key>
+						<string>Items</string>
 					</dict>
 					<key>WFSerializationType</key>
 					<string>WFTextTokenAttachment</string>
@@ -1167,7 +1273,7 @@ Telegram : @ShortcutsApps
 									</dict>
 									<dict>
 										<key>DictionaryKey</key>
-										<string>_filename</string>
+										<string>title</string>
 										<key>Type</key>
 										<string>WFDictionaryValueVariableAggrandizement</string>
 									</dict>
@@ -1177,9 +1283,31 @@ Telegram : @ShortcutsApps
 								<key>VariableName</key>
 								<string>Data</string>
 							</dict>
+							<key>{2, 1}</key>
+							<dict>
+								<key>Aggrandizements</key>
+								<array>
+									<dict>
+										<key>CoercionItemClass</key>
+										<string>WFDictionaryContentItem</string>
+										<key>Type</key>
+										<string>WFCoercionVariableAggrandizement</string>
+									</dict>
+									<dict>
+										<key>DictionaryKey</key>
+										<string>ext</string>
+										<key>Type</key>
+										<string>WFDictionaryValueVariableAggrandizement</string>
+									</dict>
+								</array>
+								<key>Type</key>
+								<string>Variable</string>
+								<key>VariableName</key>
+								<string>Format</string>
+							</dict>
 						</dict>
 						<key>string</key>
-						<string>￼</string>
+						<string>￼.￼</string>
 					</dict>
 					<key>WFSerializationType</key>
 					<string>WFTextTokenString</string>
@@ -1354,8 +1482,8 @@ Telegram : @ShortcutsApps
 	<string>900</string>
 	<key>WFWorkflowTypes</key>
 	<array>
-		<string>ActionExtension</string>
 		<string>WatchKit</string>
+		<string>ActionExtension</string>
 	</array>
 </dict>
 </plist>
