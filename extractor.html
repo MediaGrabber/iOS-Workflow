@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <p id="content"></p>
+
+    <script>
+      let data = document.getElementById("content").textContent;
+      if (typeof data === "string") {
+        data = JSON.parse(data);
+      }
+
+      if (data.extractor) {
+        data.formats = data.formats.filter((v) => v.protocol !== "m3u8_native");
+      } else if (data.entities) {
+        const video = data.extended_entities.media[0];
+        if (video.additional_media_info.title) {
+          data.title = video.additional_media_info.title;
+        } else {
+          data.title = data.full_text
+            .split("\n")[0]
+            .replace(/[/\\?%*:|"<>]/g, "-");
+        }
+        data.formats = video.video_info.variants
+          .map((item, index) => {
+            const format = item.url.match(/[\d ]{2,5}[x][\d ]{2,5}/);
+            if (format) {
+              return {
+                tbr: item.bitrate,
+                protocol: "https",
+                format: `${index} - ${format[0]}`,
+                url: item.url,
+                ext: item.content_type.split("/")[1],
+                format_id: index,
+              };
+            }
+          })
+          .filter((f) => f);
+      }
+
+      if (data.http_headers) {
+        data = { ...data.http_headers, ...data };
+      } else {
+        data["User-Agent"] =
+          "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1";
+      }
+      document.getElementById("content").innerHTML = JSON.stringify(data);
+    </script>
+  </body>
+</html>
