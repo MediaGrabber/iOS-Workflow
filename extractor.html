@@ -11,9 +11,9 @@
 
       if (data.extractor) {
         data.formats = data.formats.filter((v) => v.protocol !== "m3u8_native");
-      } else if (data.entities) {
+      } else if (data.extended_entities) {
         const video = data.extended_entities.media[0];
-        if (video.additional_media_info.title) {
+        if (video.additional_media_info && video.additional_media_info.title) {
           data.title = video.additional_media_info.title;
         } else {
           data.title = data.full_text
@@ -22,14 +22,19 @@
         }
         data.formats = video.video_info.variants
           .map((item, index) => {
-            const format = item.url.match(/[\d ]{2,5}[x][\d ]{2,5}/);
-            if (format) {
+            let type = item.content_type.split("/")[1];
+            let format = item.url.match(/[\d ]{2,5}[x][\d ]{2,5}/);
+            format = format
+              ? format[0]
+              : item.url.split("/").pop().split(".")[0];
+
+            if (type === "mp4") {
               return {
                 tbr: item.bitrate,
                 protocol: "https",
-                format: `${index} - ${format[0]}`,
+                format: `${index} - ${format}`,
                 url: item.url,
-                ext: item.content_type.split("/")[1],
+                ext: type,
                 format_id: index,
               };
             }
