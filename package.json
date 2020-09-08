@@ -1,0 +1,13 @@
+{
+  "name": "iOS-Workflow",
+  "version": "1.0.0",
+  "description": "Robust video and audio downloader",
+  "main": "index.js",
+  "repository": "https://github.com/MediaGrabber/iOS-Workflow",
+  "author": "Sayem Chowdhury",
+  "license": "No License",
+  "devDependencies": {
+    "browserify": "^16.5.2",
+    "node-fetch": "^2.6.1"
+  }
+}
