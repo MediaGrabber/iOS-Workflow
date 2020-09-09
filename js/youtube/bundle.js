@@ -1,6 +1,6 @@
 const browserify = require("browserify")();
 
-browserify.add("./js/index.js").bundle((err, buf) => {
+browserify.add("./js/youtube/index.js").bundle((err, buf) => {
   if (err) {
     console.error(err);
     process.exit(1);
@@ -10,6 +10,8 @@ browserify.add("./js/index.js").bundle((err, buf) => {
     <html>
       <body>
         <p id="content">data</p>
+        <p id="player">data</p>
+        <p id="url">data</p>
 
         <script>
         ${buf.toString()}
