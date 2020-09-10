@@ -9,8 +9,6 @@ HTML="<!DOCTYPE html>
   <html>
     <body>
       <p id="content">data</p>
-      <p id="player">data</p>
-      <p id="url">data</p>
 
       <script>
       $JS

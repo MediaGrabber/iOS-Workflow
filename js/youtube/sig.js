@@ -1,4 +1,3 @@
-const url = require("url");
 const querystring = require("querystring");
 
 /**
@@ -8,7 +7,7 @@ const querystring = require("querystring");
  * @param {string} sig
  * @returns {string}
  */
-exports.decipher = (tokens, sig) => {
+const decipher = (tokens, sig) => {
   sig = sig.split("");
   for (let i = 0, len = tokens.length; i < len; i++) {
     let token = tokens[i],
@@ -100,7 +99,7 @@ const swapRegexp = new RegExp(`(?:^|,)(${jsKeyStr})${swapStr}`, "m");
  * @param {string} body
  * @returns {Array.<string>}
  */
-exports.extractActions = (body) => {
+const extractActions = (body) => {
   const objResult = actionsObjRegexp.exec(body);
   const funcResult = actionsFuncRegexp.exec(body);
   if (!objResult || !funcResult) {
@@ -154,13 +153,9 @@ exports.extractActions = (body) => {
  * @param {Object} format
  * @param {string} sig
  */
-exports.setDownloadURL = (format, sig) => {
-  let decodedUrl;
-  if (format.url) {
-    decodedUrl = format.url;
-  } else {
-    return;
-  }
+const setDownloadURL = (format, sig) => {
+  let decodedUrl = format.url;
+  if (!decodedUrl) return;
 
   try {
     decodedUrl = decodeURIComponent(decodedUrl);
@@ -169,13 +164,11 @@ exports.setDownloadURL = (format, sig) => {
   }
 
   // Make some adjustments to the final url.
-  const parsedUrl = url.parse(decodedUrl, true);
-
-  // Deleting the `search` part is necessary otherwise changes to
-  // `query` won't reflect when running `url.format()`
-  delete parsedUrl.search;
-
-  let query = parsedUrl.query;
+  const query = {};
+  decodedUrl.split("&").map((q) => {
+    const [key, val] = q.split("=");
+    query[key] = val;
+  });
 
   // This is needed for a speedier download.
   // See https://github.com/fent/node-ytdl-core/issues/127
@@ -187,31 +180,32 @@ exports.setDownloadURL = (format, sig) => {
     query[format.sp || "signature"] = sig;
   }
 
-  format.url = url.format(parsedUrl);
+  format.url = [
+    ...Object.keys(query).map((key) => key + "=" + query[key]),
+  ].join("&");
 };
 
 /**
  * Applies `sig.decipher()` to all format URL's.
  *
  * @param {Array.<Object>} formats
- * @param {string} html5player
- * @param {Object} options
+ * @param {Array.<String>} tokens
  */
-exports.decipherFormats = (formats, html5player, options) => {
-  let decipheredFormats = {};
-  let tokens = exports.extractActions(
-    document.getElementById("player").textContent
-  );
-  formats.forEach((format) => {
+const decipherFormats = (formats, tokens) => {
+  const decipheredFormats = [];
+  for (let format of formats) {
     let cipher = format.signatureCipher || format.cipher;
     if (cipher) {
-      Object.assign(format, querystring.parse(cipher));
+      format = { ...format, ...querystring.parse(cipher) };
       delete format.signatureCipher;
       delete format.cipher;
     }
-    const sig = tokens && format.s ? exports.decipher(tokens, format.s) : null;
-    exports.setDownloadURL(format, sig);
-    decipheredFormats[format.itag] = format;
-  });
+    const sig = tokens && format.s ? decipher(tokens, format.s) : null;
+    setDownloadURL(format, sig);
+    decipheredFormats.push(format);
+  }
+
   return decipheredFormats;
 };
+
+module.exports = { decipher, decipherFormats, extractActions };
