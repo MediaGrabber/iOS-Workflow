@@ -10,7 +10,7 @@
 			<key>WFWorkflowActionParameters</key>
 			<dict>
 				<key>WFCommentActionText</key>
-				<string>Version    : 2.0.0 beta 5
+				<string>Version    : 2.0.0 beta 6
 Github     : @MediaGrabber
 Telegram : @ShortcutsApps
 
@@ -180,6 +180,8 @@ Telegram : @ShortcutsApps
 			<dict>
 				<key>GroupingIdentifier</key>
 				<string>8E575A1B-DAF9-4567-BBB4-DE44BB6B1F93</string>
+				<key>UUID</key>
+				<string>4B2E039E-D997-431E-BCFD-B752DDEFEE4E</string>
 				<key>WFControlFlowMode</key>
 				<integer>2</integer>
 			</dict>
@@ -207,7 +209,7 @@ Telegram : @ShortcutsApps
 				<key>WFMatchTextCaseSensitive</key>
 				<false/>
 				<key>WFMatchTextPattern</key>
-				<string>^.+?(?=\&amp;t|\&amp;list)|^.*</string>
+				<string>^.+?(?=\&amp;t|\&amp;list|\&amp;hl)|^.*</string>
 				<key>text</key>
 				<dict>
 					<key>Value</key>
@@ -216,12 +218,10 @@ Telegram : @ShortcutsApps
 						<dict>
 							<key>{0, 1}</key>
 							<dict>
-								<key>OutputName</key>
-								<string>If Result</string>
-								<key>OutputUUID</key>
-								<string>3CD7E718-C3C2-46F5-BF0F-FE1B9D9D1D34</string>
 								<key>Type</key>
-								<string>ActionOutput</string>
+								<string>Variable</string>
+								<key>VariableName</key>
+								<string>InputURL</string>
 							</dict>
 						</dict>
 						<key>string</key>
@@ -253,6 +253,528 @@ Telegram : @ShortcutsApps
 				</dict>
 				<key>WFVariableName</key>
 				<string>InputURL</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.text.match</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>UUID</key>
+				<string>B662FD18-03CD-4E9E-81BA-A98CF1C19962</string>
+				<key>WFMatchTextCaseSensitive</key>
+				<false/>
+				<key>WFMatchTextPattern</key>
+				<string>.*(youtube.com|youtu.be).*</string>
+				<key>text</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>attachmentsByRange</key>
+						<dict>
+							<key>{0, 1}</key>
+							<dict>
+								<key>Type</key>
+								<string>Variable</string>
+								<key>VariableName</key>
+								<string>InputURL</string>
+							</dict>
+						</dict>
+						<key>string</key>
+						<string>￼</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenString</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>E1A91474-7D1F-4982-A305-4A206753ED9C</string>
+				<key>WFCondition</key>
+				<integer>100</integer>
+				<key>WFControlFlowMode</key>
+				<integer>0</integer>
+				<key>WFInput</key>
+				<dict>
+					<key>Type</key>
+					<string>Variable</string>
+					<key>Variable</key>
+					<dict>
+						<key>Value</key>
+						<dict>
+							<key>Aggrandizements</key>
+							<array>
+								<dict>
+									<key>CoercionItemClass</key>
+									<string>WFStringContentItem</string>
+									<key>Type</key>
+									<string>WFCoercionVariableAggrandizement</string>
+								</dict>
+							</array>
+							<key>OutputName</key>
+							<string>Matches</string>
+							<key>OutputUUID</key>
+							<string>B662FD18-03CD-4E9E-81BA-A98CF1C19962</string>
+							<key>Type</key>
+							<string>ActionOutput</string>
+						</dict>
+						<key>WFSerializationType</key>
+						<string>WFTextTokenAttachment</string>
+					</dict>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>5BBA98D0-EBF4-4625-8834-C75BD3247DC2</string>
+				<key>WFCondition</key>
+				<integer>99</integer>
+				<key>WFConditionalActionString</key>
+				<string>youtu.be</string>
+				<key>WFControlFlowMode</key>
+				<integer>0</integer>
+				<key>WFInput</key>
+				<dict>
+					<key>Type</key>
+					<string>Variable</string>
+					<key>Variable</key>
+					<dict>
+						<key>Value</key>
+						<dict>
+							<key>Aggrandizements</key>
+							<array>
+								<dict>
+									<key>CoercionItemClass</key>
+									<string>WFStringContentItem</string>
+									<key>Type</key>
+									<string>WFCoercionVariableAggrandizement</string>
+								</dict>
+							</array>
+							<key>OutputName</key>
+							<string>Matches</string>
+							<key>OutputUUID</key>
+							<string>B662FD18-03CD-4E9E-81BA-A98CF1C19962</string>
+							<key>Type</key>
+							<string>ActionOutput</string>
+						</dict>
+						<key>WFSerializationType</key>
+						<string>WFTextTokenAttachment</string>
+					</dict>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.text.match</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>UUID</key>
+				<string>28EF4D08-2BC7-4A93-B761-1FACB9C7147B</string>
+				<key>WFMatchTextPattern</key>
+				<string>[^\/]\w+$</string>
+				<key>text</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>attachmentsByRange</key>
+						<dict>
+							<key>{0, 1}</key>
+							<dict>
+								<key>OutputName</key>
+								<string>Matches</string>
+								<key>OutputUUID</key>
+								<string>B662FD18-03CD-4E9E-81BA-A98CF1C19962</string>
+								<key>Type</key>
+								<string>ActionOutput</string>
+							</dict>
+						</dict>
+						<key>string</key>
+						<string>￼</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenString</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>5BBA98D0-EBF4-4625-8834-C75BD3247DC2</string>
+				<key>WFControlFlowMode</key>
+				<integer>1</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.text.match</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>UUID</key>
+				<string>5F57552C-C714-499E-B636-895660B7BE1C</string>
+				<key>WFMatchTextPattern</key>
+				<string>(?&lt;=\=)[^\]]+</string>
+				<key>text</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>attachmentsByRange</key>
+						<dict>
+							<key>{0, 1}</key>
+							<dict>
+								<key>OutputName</key>
+								<string>Matches</string>
+								<key>OutputUUID</key>
+								<string>B662FD18-03CD-4E9E-81BA-A98CF1C19962</string>
+								<key>Type</key>
+								<string>ActionOutput</string>
+							</dict>
+						</dict>
+						<key>string</key>
+						<string>￼</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenString</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>5BBA98D0-EBF4-4625-8834-C75BD3247DC2</string>
+				<key>UUID</key>
+				<string>5B8155C9-64E1-4D73-9E45-82B5773231CB</string>
+				<key>WFControlFlowMode</key>
+				<integer>2</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.setvariable</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>WFInput</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>Aggrandizements</key>
+						<array>
+							<dict>
+								<key>CoercionItemClass</key>
+								<string>WFStringContentItem</string>
+								<key>Type</key>
+								<string>WFCoercionVariableAggrandizement</string>
+							</dict>
+						</array>
+						<key>OutputName</key>
+						<string>If Result</string>
+						<key>OutputUUID</key>
+						<string>5B8155C9-64E1-4D73-9E45-82B5773231CB</string>
+						<key>Type</key>
+						<string>ActionOutput</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenAttachment</string>
+				</dict>
+				<key>WFVariableName</key>
+				<string>YoutubeId</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.downloadurl</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>ShowHeaders</key>
+				<true/>
+				<key>UUID</key>
+				<string>33D2908F-7265-467C-8D94-D7F7E46CFD5B</string>
+				<key>WFHTTPHeaders</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>WFDictionaryFieldValueItems</key>
+						<array>
+							<dict>
+								<key>WFItemType</key>
+								<integer>0</integer>
+								<key>WFKey</key>
+								<dict>
+									<key>Value</key>
+									<dict>
+										<key>attachmentsByRange</key>
+										<dict/>
+										<key>string</key>
+										<string>x-youtube-client-name</string>
+									</dict>
+									<key>WFSerializationType</key>
+									<string>WFTextTokenString</string>
+								</dict>
+								<key>WFValue</key>
+								<dict>
+									<key>Value</key>
+									<dict>
+										<key>attachmentsByRange</key>
+										<dict/>
+										<key>string</key>
+										<string>1</string>
+									</dict>
+									<key>WFSerializationType</key>
+									<string>WFTextTokenString</string>
+								</dict>
+							</dict>
+							<dict>
+								<key>WFItemType</key>
+								<integer>0</integer>
+								<key>WFKey</key>
+								<dict>
+									<key>Value</key>
+									<dict>
+										<key>attachmentsByRange</key>
+										<dict/>
+										<key>string</key>
+										<string>x-youtube-client-version</string>
+									</dict>
+									<key>WFSerializationType</key>
+									<string>WFTextTokenString</string>
+								</dict>
+								<key>WFValue</key>
+								<dict>
+									<key>Value</key>
+									<dict>
+										<key>attachmentsByRange</key>
+										<dict/>
+										<key>string</key>
+										<string>2.20200701.03.01</string>
+									</dict>
+									<key>WFSerializationType</key>
+									<string>WFTextTokenString</string>
+								</dict>
+							</dict>
+						</array>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFDictionaryFieldValue</string>
+				</dict>
+				<key>WFURL</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>attachmentsByRange</key>
+						<dict>
+							<key>{32, 1}</key>
+							<dict>
+								<key>Aggrandizements</key>
+								<array>
+									<dict>
+										<key>CoercionItemClass</key>
+										<string>WFStringContentItem</string>
+										<key>Type</key>
+										<string>WFCoercionVariableAggrandizement</string>
+									</dict>
+								</array>
+								<key>Type</key>
+								<string>Variable</string>
+								<key>VariableName</key>
+								<string>YoutubeId</string>
+							</dict>
+						</dict>
+						<key>string</key>
+						<string>https://www.youtube.com/watch?v=￼&amp;hl=en&amp;pbj=1</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenString</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.setvariable</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>WFInput</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>OutputName</key>
+						<string>Contents of URL</string>
+						<key>OutputUUID</key>
+						<string>33D2908F-7265-467C-8D94-D7F7E46CFD5B</string>
+						<key>Type</key>
+						<string>ActionOutput</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenAttachment</string>
+				</dict>
+				<key>WFVariableName</key>
+				<string>YoutubeData</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.gettext</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>UUID</key>
+				<string>F5113106-4353-442A-936C-6DC82F1E3DC3</string>
+				<key>WFTextActionText</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>attachmentsByRange</key>
+						<dict>
+							<key>{56, 1}</key>
+							<dict>
+								<key>Aggrandizements</key>
+								<array>
+									<dict>
+										<key>CoercionItemClass</key>
+										<string>WFStringContentItem</string>
+										<key>Type</key>
+										<string>WFCoercionVariableAggrandizement</string>
+									</dict>
+								</array>
+								<key>Type</key>
+								<string>Variable</string>
+								<key>VariableName</key>
+								<string>YoutubeData</string>
+							</dict>
+						</dict>
+						<key>string</key>
+						<string>&lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+    &lt;body&gt;
+      &lt;p id=content&gt;￼&lt;/p&gt;
+
+      &lt;script&gt;
+      !function(e){var t={};function a(i){if(t[i])return t[i].exports;var o=t[i]={i:i,l:!1,exports:{}};return e[i].call(o.exports,o,o.exports,a),o.l=!0,o.exports}a.m=e,a.c=t,a.d=function(e,t,i){a.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:i})},a.r=function(e){"undefined"!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,t){if(1&amp;t&amp;&amp;(e=a(e)),8&amp;t)return e;if(4&amp;t&amp;&amp;"object"==typeof e&amp;&amp;e&amp;&amp;e.__esModule)return e;var i=Object.create(null);if(a.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:e}),2&amp;t&amp;&amp;"string"!=typeof e)for(var o in e)a.d(i,o,function(t){return e[t]}.bind(null,o));return i},a.n=function(e){var t=e&amp;&amp;e.__esModule?function(){return e.default}:function(){return e};return a.d(t,"a",t),t},a.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},a.p="",a(a.s=0)}([function(e,t,a){const i=a(1),o=a(5);try{const e=document.getElementById("content").textContent.split("\n"),{streamingData:t,videoDetails:a}=JSON.parse(JSON.parse(e[2]).player.args.player_response),r=["r","p1","r"],l=i.decipherFormats([...t.formats,...t.adaptiveFormats],r).map(o.addFormatMeta);l.sort(o.sortFormats),document.getElementById("content").innerHTML=JSON.stringify({title:a.title,player_tokens:r,formats:l})}catch(e){document.getElementById("content").innerHTML=JSON.stringify(e)}},function(e,t,a){const i=a(2),o=(e,t)=&gt;{t=t.split("");for(let a=0,i=e.length;a&lt;i;a++){let i,o=e[a];switch(o[0]){case"r":t=t.reverse();break;case"w":i=~~o.slice(1),t=r(t,i);break;case"s":i=~~o.slice(1),t=t.slice(i);break;case"p":i=~~o.slice(1),t.splice(0,i)}}return t.join("")},r=(e,t)=&gt;{const a=e[0];return e[0]=e[t%e.length],e[t]=a,e},l="[a-zA-Z_\\$][a-zA-Z_0-9]*",u="(?:'[^'\\\\]*(:?\\\\[\\s\\S][^'\\\\]*)*'|\"[^\"\\\\]*(:?\\\\[\\s\\S][^\"\\\\]*)*\")",c=`(?:${l}|${u})`,n=`(?:\\.${l}|\\[${u}\\])`,d=":function\\(a\\)\\{(?:return )?a\\.reverse\\(\\)\\}",p=":function\\(a,b\\)\\{return a\\.slice\\(b\\)\\}",s=":function\\(a,b\\)\\{a\\.splice\\(0,b\\)\\}",m=":function\\(a,b\\)\\{var c=a\\[0\\];a\\[0\\]=a\\[b(?:%a\\.length)?\\];a\\[b(?:%a\\.length)?\\]=c(?:;return a)?\\}",b=new RegExp(`var (${l})=\\{((?:(?:${c}${d}|${c}${p}|${c}${s}|${c}${m}),?\\r?\\n?)+)\\};`),y=new RegExp(`function(?: ${l})?\\(a\\)\\{a=a\\.split\\((?:''|"")\\);\\s*((?:(?:a=)?[a-zA-Z_\\$][a-zA-Z_0-9]*${n}\\(a,\\d+\\);)+)return a\\.join\\((?:''|"")\\)\\}`),v=new RegExp(`(?:^|,)(${c})${d}`,"m"),f=new RegExp(`(?:^|,)(${c})${p}`,"m"),L=new RegExp(`(?:^|,)(${c})${s}`,"m"),T=new RegExp(`(?:^|,)(${c})${m}`,"m"),B=(e,t)=&gt;{let a=e.url;if(!a)return;try{a=decodeURIComponent(a)}catch(e){return}const i={};a.split("&amp;").map(e=&gt;{const[t,a]=e.split("=");i[t]=a}),i.ratebypass="yes",t&amp;&amp;(i[e.sp||"signature"]=t),e.url=[...Object.keys(i).map(e=&gt;e+"="+i[e])].join("&amp;")};e.exports={decipher:o,decipherFormats:(e,t)=&gt;{const a=[];for(let r of e){let e=r.signatureCipher||r.cipher;e&amp;&amp;(r={...r,...i.parse(e)},delete r.signatureCipher,delete r.cipher);const l=t&amp;&amp;r.s?o(t,r.s):null;B(r,l),a.push(r)}return a},extractActions:e=&gt;{const t=b.exec(e),a=y.exec(e);if(!t||!a)return null;const i=t[1].replace(/\$/g,"\\$"),o=t[2].replace(/\$/g,"\\$"),r=a[1].replace(/\$/g,"\\$");let l=v.exec(o);const u=l&amp;&amp;l[1].replace(/\$/g,"\\$").replace(/\$|^'|^"|'$|"$/g,"");l=f.exec(o);const c=l&amp;&amp;l[1].replace(/\$/g,"\\$").replace(/\$|^'|^"|'$|"$/g,"");l=L.exec(o);const n=l&amp;&amp;l[1].replace(/\$/g,"\\$").replace(/\$|^'|^"|'$|"$/g,"");l=T.exec(o);const d=l&amp;&amp;l[1].replace(/\$/g,"\\$").replace(/\$|^'|^"|'$|"$/g,""),p=`(${[u,c,n,d].join("|")})`,s=new RegExp(`(?:a=)?${i}(?:\\.${p}|\\['${p}'\\]|\\["${p}"\\])\\(a,(\\d+)\\)`,"g"),m=[];for(;null!==(l=s.exec(r));){switch(l[1]||l[2]||l[3]){case d:m.push("w"+l[4]);break;case u:m.push("r");break;case c:m.push("s"+l[4]);break;case n:m.push("p"+l[4])}}return m}}},function(e,t,a){"use strict";t.decode=t.parse=a(3),t.encode=t.stringify=a(4)},function(e,t,a){"use strict";function i(e,t){return Object.prototype.hasOwnProperty.call(e,t)}e.exports=function(e,t,a,r){t=t||"&amp;",a=a||"=";var l={};if("string"!=typeof e||0===e.length)return l;var u=/\+/g;e=e.split(t);var c=1e3;r&amp;&amp;"number"==typeof r.maxKeys&amp;&amp;(c=r.maxKeys);var n=e.length;c&gt;0&amp;&amp;n&gt;c&amp;&amp;(n=c);for(var d=0;d&lt;n;++d){var p,s,m,b,y=e[d].replace(u,"%20"),v=y.indexOf(a);v&gt;=0?(p=y.substr(0,v),s=y.substr(v+1)):(p=y,s=""),m=decodeURIComponent(p),b=decodeURIComponent(s),i(l,m)?o(l[m])?l[m].push(b):l[m]=[l[m],b]:l[m]=b}return l};var o=Array.isArray||function(e){return"[object Array]"===Object.prototype.toString.call(e)}},function(e,t,a){"use strict";var i=function(e){switch(typeof e){case"string":return e;case"boolean":return e?"true":"false";case"number":return isFinite(e)?e:"";default:return""}};e.exports=function(e,t,a,u){return t=t||"&amp;",a=a||"=",null===e&amp;&amp;(e=void 0),"object"==typeof e?r(l(e),(function(l){var u=encodeURIComponent(i(l))+a;return o(e[l])?r(e[l],(function(e){return u+encodeURIComponent(i(e))})).join(t):u+encodeURIComponent(i(e[l]))})).join(t):u?encodeURIComponent(i(u))+a+encodeURIComponent(i(e)):""};var o=Array.isArray||function(e){return"[object Array]"===Object.prototype.toString.call(e)};function r(e,t){if(e.map)return e.map(t);for(var a=[],i=0;i&lt;e.length;i++)a.push(t(e[i],i));return a}var l=Object.keys||function(e){var t=[];for(var a in e)Object.prototype.hasOwnProperty.call(e,a)&amp;&amp;t.push(a);return t}},function(e,t,a){const i=a(6),o=["mp4a","mp3","vorbis","aac","opus","flac"],r=["mp4v","avc1","Sorenson H.283","MPEG-4 Visual","VP8","VP9","H.264"],l=e=&gt;parseInt(e.bitrate)||0,u=e=&gt;(e.audioBitrate||0)+o.findIndex(t=&gt;e.codecs&amp;&amp;e.codecs.includes(t))/10;e.exports={addFormatMeta:e=&gt;((e={...i[e.itag],...e}).hasVideo=!!e.qualityLabel,e.hasAudio=!!e.audioBitrate,e.container=e.mimeType?e.mimeType.split(";")[0].split("/")[1]:null,e.codecs=e.mimeType?((e,t,a)=&gt;{let i=e.indexOf(t);return-1===i?"":(i=(e=e.slice(i+t.length)).indexOf(a),-1===i?"":e=e.slice(0,i))})(e.mimeType,'codecs="','"'):null,e.videoCodec=e.hasVideo&amp;&amp;e.codecs?e.codecs.split(", ")[0]:null,e.audioCodec=e.hasAudio&amp;&amp;e.codecs?e.codecs.split(", ").slice(-1)[0]:null,e.isLive=/\/source\/yt_live_broadcast\//.test(e.url),e.isHLS=/\/manifest\/hls_(variant|playlist)\//.test(e.url),e.isDashMPD=/\/manifest\/dash\//.test(e.url),e.ext=e.container,e.protocol=e.isLive||e.isHLS?"m3u8_native":"https",e.format=`${e.itag} - ${e.container}${e.hasAudio?"":" (video only)"}${e.hasVideo?"":" (audio only)"} [${e.quality}]`,e),sortFormats:(e,t)=&gt;{const a=e=&gt;{const t=/(\d+)p/.exec(e.qualityLabel);return t?parseInt(t[1]):0},i=a(e),o=a(t),c=2*~~!!i+~~!!e.audioBitrate,n=2*~~!!o+~~!!t.audioBitrate;if(c===n){if(i===o){let a=l(e),i=l(t);if(a===i){let a=u(e),i=u(t);if(a===i){const a=r.findIndex(t=&gt;e.codecs&amp;&amp;e.codecs.includes(t));return r.findIndex(e=&gt;t.codecs&amp;&amp;t.codecs.includes(e))-a}return i-a}return i-a}return o-i}return n-c}}},function(e,t){e.exports={5:{mimeType:'video/flv; codecs="Sorenson H.283, mp3"',qualityLabel:"240p",bitrate:25e4,audioBitrate:64},6:{mimeType:'video/flv; codecs="Sorenson H.263, mp3"',qualityLabel:"270p",bitrate:8e5,audioBitrate:64},13:{mimeType:'video/3gp; codecs="MPEG-4 Visual, aac"',qualityLabel:null,bitrate:5e5,audioBitrate:null},17:{mimeType:'video/3gp; codecs="MPEG-4 Visual, aac"',qualityLabel:"144p",bitrate:5e4,audioBitrate:24},18:{mimeType:'video/mp4; codecs="H.264, aac"',qualityLabel:"360p",bitrate:5e5,audioBitrate:96},22:{mimeType:'video/mp4; codecs="H.264, aac"',qualityLabel:"720p",bitrate:2e6,audioBitrate:192},34:{mimeType:'video/flv; codecs="H.264, aac"',qualityLabel:"360p",bitrate:5e5,audioBitrate:128},35:{mimeType:'video/flv; codecs="H.264, aac"',qualityLabel:"480p",bitrate:8e5,audioBitrate:128},36:{mimeType:'video/3gp; codecs="MPEG-4 Visual, aac"',qualityLabel:"240p",bitrate:175e3,audioBitrate:32},37:{mimeType:'video/mp4; codecs="H.264, aac"',qualityLabel:"1080p",bitrate:3e6,audioBitrate:192},38:{mimeType:'video/mp4; codecs="H.264, aac"',qualityLabel:"3072p",bitrate:35e5,audioBitrate:192},43:{mimeType:'video/webm; codecs="VP8, vorbis"',qualityLabel:"360p",bitrate:5e5,audioBitrate:128},44:{mimeType:'video/webm; codecs="VP8, vorbis"',qualityLabel:"480p",bitrate:1e6,audioBitrate:128},45:{mimeType:'video/webm; codecs="VP8, vorbis"',qualityLabel:"720p",bitrate:2e6,audioBitrate:192},46:{mimeType:'audio/webm; codecs="vp8, vorbis"',qualityLabel:"1080p",bitrate:null,audioBitrate:192},82:{mimeType:'video/mp4; codecs="H.264, aac"',qualityLabel:"360p",bitrate:5e5,audioBitrate:96},83:{mimeType:'video/mp4; codecs="H.264, aac"',qualityLabel:"240p",bitrate:5e5,audioBitrate:96},84:{mimeType:'video/mp4; codecs="H.264, aac"',qualityLabel:"720p",bitrate:2e6,audioBitrate:192},85:{mimeType:'video/mp4; codecs="H.264, aac"',qualityLabel:"1080p",bitrate:3e6,audioBitrate:192},91:{mimeType:'video/ts; codecs="H.264, aac"',qualityLabel:"144p",bitrate:1e5,audioBitrate:48},92:{mimeType:'video/ts; codecs="H.264, aac"',qualityLabel:"240p",bitrate:15e4,audioBitrate:48},93:{mimeType:'video/ts; codecs="H.264, aac"',qualityLabel:"360p",bitrate:5e5,audioBitrate:128},94:{mimeType:'video/ts; codecs="H.264, aac"',qualityLabel:"480p",bitrate:8e5,audioBitrate:128},95:{mimeType:'video/ts; codecs="H.264, aac"',qualityLabel:"720p",bitrate:15e5,audioBitrate:256},96:{mimeType:'video/ts; codecs="H.264, aac"',qualityLabel:"1080p",bitrate:25e5,audioBitrate:256},100:{mimeType:'audio/webm; codecs="VP8, vorbis"',qualityLabel:"360p",bitrate:null,audioBitrate:128},101:{mimeType:'audio/webm; codecs="VP8, vorbis"',qualityLabel:"360p",bitrate:null,audioBitrate:192},102:{mimeType:'audio/webm; codecs="VP8, vorbis"',qualityLabel:"720p",bitrate:null,audioBitrate:192},120:{mimeType:'video/flv; codecs="H.264, aac"',qualityLabel:"720p",bitrate:2e6,audioBitrate:128},127:{mimeType:'audio/ts; codecs="aac"',qualityLabel:null,bitrate:null,audioBitrate:96},128:{mimeType:'audio/ts; codecs="aac"',qualityLabel:null,bitrate:null,audioBitrate:96},132:{mimeType:'video/ts; codecs="H.264, aac"',qualityLabel:"240p",bitrate:15e4,audioBitrate:48},133:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"240p",bitrate:2e5,audioBitrate:null},134:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"360p",bitrate:3e5,audioBitrate:null},135:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"480p",bitrate:5e5,audioBitrate:null},136:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"720p",bitrate:1e6,audioBitrate:null},137:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"1080p",bitrate:25e5,audioBitrate:null},138:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"4320p",bitrate:135e5,audioBitrate:null},139:{mimeType:'audio/mp4; codecs="aac"',qualityLabel:null,bitrate:null,audioBitrate:48},140:{mimeType:'audio/m4a; codecs="aac"',qualityLabel:null,bitrate:null,audioBitrate:128},141:{mimeType:'audio/mp4; codecs="aac"',qualityLabel:null,bitrate:null,audioBitrate:256},151:{mimeType:'video/ts; codecs="H.264, aac"',qualityLabel:"720p",bitrate:5e4,audioBitrate:24},160:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"144p",bitrate:1e5,audioBitrate:null},171:{mimeType:'audio/webm; codecs="vorbis"',qualityLabel:null,bitrate:null,audioBitrate:128},172:{mimeType:'audio/webm; codecs="vorbis"',qualityLabel:null,bitrate:null,audioBitrate:192},242:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"240p",bitrate:1e5,audioBitrate:null},243:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"360p",bitrate:25e4,audioBitrate:null},244:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"480p",bitrate:5e5,audioBitrate:null},247:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"720p",bitrate:7e5,audioBitrate:null},248:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"1080p",bitrate:15e5,audioBitrate:null},249:{mimeType:'audio/webm; codecs="opus"',qualityLabel:null,bitrate:null,audioBitrate:48},250:{mimeType:'audio/webm; codecs="opus"',qualityLabel:null,bitrate:null,audioBitrate:64},251:{mimeType:'audio/webm; codecs="opus"',qualityLabel:null,bitrate:null,audioBitrate:160},264:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"1440p",bitrate:4e6,audioBitrate:null},266:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"2160p",bitrate:125e5,audioBitrate:null},271:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"1440p",bitrate:9e6,audioBitrate:null},272:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"4320p",bitrate:2e7,audioBitrate:null},278:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"144p 15fps",bitrate:8e4,audioBitrate:null},298:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"720p",bitrate:3e6,audioBitrate:null},299:{mimeType:'video/mp4; codecs="H.264"',qualityLabel:"1080p",bitrate:55e5,audioBitrate:null},302:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"720p HFR",bitrate:25e5,audioBitrate:null},303:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"1080p HFR",bitrate:5e6,audioBitrate:null},308:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"1440p HFR",bitrate:1e7,audioBitrate:null},313:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"2160p",bitrate:13e6,audioBitrate:null},315:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"2160p HFR",bitrate:2e7,audioBitrate:null},330:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"144p HDR, HFR",bitrate:8e4,audioBitrate:null},331:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"240p HDR, HFR",bitrate:1e5,audioBitrate:null},332:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"360p HDR, HFR",bitrate:25e4,audioBitrate:null},333:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"240p HDR, HFR",bitrate:5e5,audioBitrate:null},334:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"720p HDR, HFR",bitrate:1e6,audioBitrate:null},335:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"1080p HDR, HFR",bitrate:15e5,audioBitrate:null},336:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"1440p HDR, HFR",bitrate:5e6,audioBitrate:null},337:{mimeType:'video/webm; codecs="VP9"',qualityLabel:"2160p HDR, HFR",bitrate:12e6,audioBitrate:null}}}]);
+     &lt;/script&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenString</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.url</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>UUID</key>
+				<string>B6E19384-F6B3-44DB-BC96-452855BC5E76</string>
+				<key>WFURLActionURL</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>attachmentsByRange</key>
+						<dict>
+							<key>{15, 1}</key>
+							<dict>
+								<key>OutputName</key>
+								<string>Text</string>
+								<key>OutputUUID</key>
+								<string>F5113106-4353-442A-936C-6DC82F1E3DC3</string>
+								<key>Type</key>
+								<string>ActionOutput</string>
+							</dict>
+						</dict>
+						<key>string</key>
+						<string>data:text/html,￼</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenString</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.getwebpagecontents</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>UUID</key>
+				<string>08A1AF05-AAD1-4882-AF64-DA6BCE9F658A</string>
+				<key>WFInput</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>attachmentsByRange</key>
+						<dict>
+							<key>{0, 1}</key>
+							<dict>
+								<key>OutputName</key>
+								<string>URL</string>
+								<key>OutputUUID</key>
+								<string>B6E19384-F6B3-44DB-BC96-452855BC5E76</string>
+								<key>Type</key>
+								<string>ActionOutput</string>
+							</dict>
+						</dict>
+						<key>string</key>
+						<string>￼</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenString</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.setvariable</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>WFInput</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>Aggrandizements</key>
+						<array>
+							<dict>
+								<key>CoercionItemClass</key>
+								<string>WFStringContentItem</string>
+								<key>Type</key>
+								<string>WFCoercionVariableAggrandizement</string>
+							</dict>
+						</array>
+						<key>OutputName</key>
+						<string>Contents of Web Page</string>
+						<key>OutputUUID</key>
+						<string>08A1AF05-AAD1-4882-AF64-DA6BCE9F658A</string>
+						<key>Type</key>
+						<string>ActionOutput</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenAttachment</string>
+				</dict>
+				<key>WFVariableName</key>
+				<string>Data</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>E1A91474-7D1F-4982-A305-4A206753ED9C</string>
+				<key>WFControlFlowMode</key>
+				<integer>1</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -366,7 +888,7 @@ Telegram : @ShortcutsApps
 			<key>WFWorkflowActionParameters</key>
 			<dict>
 				<key>ShowHeaders</key>
-				<true/>
+				<false/>
 				<key>UUID</key>
 				<string>1BB4FC97-43F5-4DA3-A615-D27D710C363B</string>
 				<key>WFHTTPHeaders</key>
@@ -795,6 +1317,19 @@ Telegram : @ShortcutsApps
 			<key>WFWorkflowActionParameters</key>
 			<dict>
 				<key>GroupingIdentifier</key>
+				<string>E1A91474-7D1F-4982-A305-4A206753ED9C</string>
+				<key>UUID</key>
+				<string>141C11BB-C8BC-44FC-8103-3C2E1CAA3C60</string>
+				<key>WFControlFlowMode</key>
+				<integer>2</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
 				<string>591089F5-BB2A-4539-B7D9-8CA6B6EAEAAF</string>
 				<key>WFCondition</key>
 				<integer>101</integer>
@@ -922,7 +1457,7 @@ Telegram : @ShortcutsApps
 										<key>attachmentsByRange</key>
 										<dict/>
 										<key>string</key>
-										<string>5</string>
+										<string>6</string>
 									</dict>
 									<key>WFSerializationType</key>
 									<string>WFTextTokenString</string>
@@ -1064,18 +1599,63 @@ Telegram : @ShortcutsApps
 		</dict>
 		<dict>
 			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>A3B5DA7E-12A2-43BC-A42F-1C2224F67A4B</string>
+				<key>WFCondition</key>
+				<integer>101</integer>
+				<key>WFControlFlowMode</key>
+				<integer>0</integer>
+				<key>WFInput</key>
+				<dict>
+					<key>Type</key>
+					<string>Variable</string>
+					<key>Variable</key>
+					<dict>
+						<key>Value</key>
+						<dict>
+							<key>Aggrandizements</key>
+							<array>
+								<dict>
+									<key>CoercionItemClass</key>
+									<string>WFDictionaryContentItem</string>
+									<key>Type</key>
+									<string>WFCoercionVariableAggrandizement</string>
+								</dict>
+								<dict>
+									<key>DictionaryKey</key>
+									<string>player_tokens</string>
+									<key>Type</key>
+									<string>WFDictionaryValueVariableAggrandizement</string>
+								</dict>
+							</array>
+							<key>Type</key>
+							<string>Variable</string>
+							<key>VariableName</key>
+							<string>Data</string>
+						</dict>
+						<key>WFSerializationType</key>
+						<string>WFTextTokenAttachment</string>
+					</dict>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
 			<string>is.workflow.actions.gettext</string>
 			<key>WFWorkflowActionParameters</key>
 			<dict>
 				<key>UUID</key>
-				<string>9C706E90-B0BD-4456-A4C3-226231A81D44</string>
+				<string>CEC70FD2-531A-4073-8735-AA8D1C952B88</string>
 				<key>WFTextActionText</key>
 				<dict>
 					<key>Value</key>
 					<dict>
 						<key>attachmentsByRange</key>
 						<dict>
-							<key>{52, 1}</key>
+							<key>{56, 1}</key>
 							<dict>
 								<key>Type</key>
 								<string>Variable</string>
@@ -1085,106 +1665,16 @@ Telegram : @ShortcutsApps
 						</dict>
 						<key>string</key>
 						<string>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;body&gt;
-    &lt;p id="content"&gt;￼&lt;/p&gt;
+  &lt;html&gt;
+    &lt;body&gt;
+      &lt;p id=content&gt;￼&lt;/p&gt;
 
-    &lt;script&gt;
-    (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&amp;&amp;require;if(!f&amp;&amp;c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&amp;&amp;require,i=0;i&lt;t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-    const twitter = require("./twitter");
-    const instagram = require("./instagram");
-
-    let data = document.getElementById("content").textContent;
-    if (typeof data === "string") {
-      data = JSON.parse(data);
-    }
-
-    if (data.extractor) {
-      data.formats = data.formats.filter((v) =&gt; v.protocol !== "m3u8_native");
-      data = { ...data.http_headers, ...data };
-    } else if (data.extended_entities) {
-      data = twitter(data);
-      data["User-Agent"] =
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1";
-    } else if (data.graphql) {
-      data = instagram(data);
-    }
-
-    document.getElementById("content").innerHTML = JSON.stringify(data);
-
-    },{"./instagram":2,"./twitter":3}],2:[function(require,module,exports){
-    const instagram = (data) =&gt; {
-      const media = data.graphql.shortcode_media;
-      data.title = media.shortcode;
-      data.is_album = true;
-
-      if (media.edge_sidecar_to_children) {
-        data.formats = media.edge_sidecar_to_children.edges.map(
-          ({ node: item }, index) =&gt; {
-            return {
-              protocol: "https",
-              format: `${index} - ${item.dimensions.height}x${item.dimensions.width}`,
-              url: item.is_video ? item.video_url : item.display_url,
-              ext: item.is_video ? "mp4" : "jpg",
-              format_id: index,
-            };
-          }
-        );
-      } else {
-        data.formats = [
-          {
-            protocol: "https",
-            format: `0 - ${media.dimensions.height}x${media.dimensions.width}`,
-            url: media.is_video ? media.video_url : media.display_url,
-            ext: media.is_video ? "mp4" : "jpg",
-            format_id: 0,
-          },
-        ];
-      }
-
-      return data;
-    };
-
-    module.exports = instagram;
-
-    },{}],3:[function(require,module,exports){
-    const twitter = (data) =&gt; {
-      const video = data.extended_entities.media[0];
-
-      if (video.additional_media_info &amp;&amp; video.additional_media_info.title) {
-        data.title = video.additional_media_info.title;
-      } else {
-        data.title = data.full_text.split("\n")[0].replace(/[/\\?%*:|"&lt;&gt;]/g, "-");
-      }
-
-      data.formats = video.video_info.variants
-        .map((item, index) =&gt; {
-          let type = item.content_type.split("/")[1];
-          let format = item.url.match(/[\d ]{2,5}[x][\d ]{2,5}/);
-          format = format ? format[0] : item.url.split("/").pop().split(".")[0];
-
-          if (type === "mp4") {
-            return {
-              tbr: item.bitrate,
-              protocol: "https",
-              format: `${index} - ${format}`,
-              url: item.url,
-              ext: type,
-              format_id: index,
-            };
-          }
-        })
-        .filter((f) =&gt; f);
-
-      return data;
-    };
-
-    module.exports = twitter;
-
-    },{}]},{},[1]);
-    &lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</string>
+      &lt;script&gt;
+      !function(e){var t={};function o(i){if(t[i])return t[i].exports;var r=t[i]={i:i,l:!1,exports:{}};return e[i].call(r.exports,r,r.exports,o),r.l=!0,r.exports}o.m=e,o.c=t,o.d=function(e,t,i){o.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:i})},o.r=function(e){"undefined"!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},o.t=function(e,t){if(1&amp;t&amp;&amp;(e=o(e)),8&amp;t)return e;if(4&amp;t&amp;&amp;"object"==typeof e&amp;&amp;e&amp;&amp;e.__esModule)return e;var i=Object.create(null);if(o.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:e}),2&amp;t&amp;&amp;"string"!=typeof e)for(var r in e)o.d(i,r,function(t){return e[t]}.bind(null,r));return i},o.n=function(e){var t=e&amp;&amp;e.__esModule?function(){return e.default}:function(){return e};return o.d(t,"a",t),t},o.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},o.p="",o(o.s=0)}([function(e,t,o){const i=o(1),r=o(2);let n=document.getElementById("content").textContent;"string"==typeof n&amp;&amp;(n=JSON.parse(n)),n.extractor?(n.formats=n.formats.filter(e=&gt;"m3u8_native"!==e.protocol),n={...n.http_headers,...n}):n.extended_entities?(n=i(n),n["User-Agent"]="Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"):n.graphql&amp;&amp;(n=r(n)),document.getElementById("content").innerHTML=JSON.stringify(n)},function(e,t){e.exports=e=&gt;{const t=e.extended_entities.media[0];return t.additional_media_info&amp;&amp;t.additional_media_info.title?e.title=t.additional_media_info.title:e.title=e.full_text.split("\n")[0].replace(/[/\\?%*:|"&lt;&gt;]/g,"-"),e.formats=t.video_info.variants.map((e,t)=&gt;{let o=e.content_type.split("/")[1],i=e.url.match(/[\d ]{2,5}[x][\d ]{2,5}/);if(i=i?i[0]:e.url.split("/").pop().split(".")[0],"mp4"===o)return{tbr:e.bitrate,protocol:"https",format:`${t} - ${i}`,url:e.url,ext:o,format_id:t}}).filter(e=&gt;e),e}},function(e,t){e.exports=e=&gt;{const t=e.graphql.shortcode_media;return e.title=t.shortcode,e.is_album=!0,t.edge_sidecar_to_children?e.formats=t.edge_sidecar_to_children.edges.map(({node:e},t)=&gt;({protocol:"https",format:`${t} - ${e.dimensions.height}x${e.dimensions.width}`,url:e.is_video?e.video_url:e.display_url,ext:e.is_video?"mp4":"jpg",format_id:t})):e.formats=[{protocol:"https",format:`0 - ${t.dimensions.height}x${t.dimensions.width}`,url:t.is_video?t.video_url:t.display_url,ext:t.is_video?"mp4":"jpg",format_id:0}],e}}]);
+     &lt;/script&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+</string>
 					</dict>
 					<key>WFSerializationType</key>
 					<string>WFTextTokenString</string>
@@ -1209,7 +1699,7 @@ Telegram : @ShortcutsApps
 								<key>OutputName</key>
 								<string>Text</string>
 								<key>OutputUUID</key>
-								<string>9C706E90-B0BD-4456-A4C3-226231A81D44</string>
+								<string>CEC70FD2-531A-4073-8735-AA8D1C952B88</string>
 								<key>Type</key>
 								<string>ActionOutput</string>
 							</dict>
@@ -1283,6 +1773,19 @@ Telegram : @ShortcutsApps
 				</dict>
 				<key>WFVariableName</key>
 				<string>Data</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>A3B5DA7E-12A2-43BC-A42F-1C2224F67A4B</string>
+				<key>UUID</key>
+				<string>9F965F95-542B-4DE6-B36D-DA2DEA966F21</string>
+				<key>WFControlFlowMode</key>
+				<integer>2</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -2314,6 +2817,49 @@ Telegram : @ShortcutsApps
 		</dict>
 		<dict>
 			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.repeat.count</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>5FDB35F3-1DD9-4490-BC9F-84CFBD8A3DDD</string>
+				<key>WFControlFlowMode</key>
+				<integer>0</integer>
+				<key>WFRepeatCount</key>
+				<real>3</real>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>6BA6F067-1F33-496A-B791-B053CDECD409</string>
+				<key>WFCondition</key>
+				<integer>101</integer>
+				<key>WFControlFlowMode</key>
+				<integer>0</integer>
+				<key>WFInput</key>
+				<dict>
+					<key>Type</key>
+					<string>Variable</string>
+					<key>Variable</key>
+					<dict>
+						<key>Value</key>
+						<dict>
+							<key>Type</key>
+							<string>Variable</string>
+							<key>VariableName</key>
+							<string>Files</string>
+						</dict>
+						<key>WFSerializationType</key>
+						<string>WFTextTokenAttachment</string>
+					</dict>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
 			<string>is.workflow.actions.downloadurl</string>
 			<key>WFWorkflowActionParameters</key>
 			<dict>
@@ -2575,6 +3121,75 @@ Telegram : @ShortcutsApps
 		</dict>
 		<dict>
 			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.properties.files</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>UUID</key>
+				<string>58D67F43-83B3-4D19-894D-AF3B49D1E1BB</string>
+				<key>WFContentItemPropertyName</key>
+				<string>File Size</string>
+				<key>WFInput</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>OutputName</key>
+						<string>Contents of URL</string>
+						<key>OutputUUID</key>
+						<string>9DAE0010-3828-4037-B9A8-3F01ADA84483</string>
+						<key>Type</key>
+						<string>ActionOutput</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenAttachment</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>2FDDC10E-AC17-4432-BE4A-2D2DF34AD015</string>
+				<key>WFCondition</key>
+				<integer>3</integer>
+				<key>WFControlFlowMode</key>
+				<integer>0</integer>
+				<key>WFInput</key>
+				<dict>
+					<key>Type</key>
+					<string>Variable</string>
+					<key>Variable</key>
+					<dict>
+						<key>Value</key>
+						<dict>
+							<key>OutputName</key>
+							<string>File Size</string>
+							<key>OutputUUID</key>
+							<string>58D67F43-83B3-4D19-894D-AF3B49D1E1BB</string>
+							<key>Type</key>
+							<string>ActionOutput</string>
+						</dict>
+						<key>WFSerializationType</key>
+						<string>WFTextTokenAttachment</string>
+					</dict>
+				</dict>
+				<key>WFMeasurement</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>Magnitude</key>
+						<string>1024</string>
+						<key>Unit</key>
+						<string>B</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFQuantityFieldValue</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
 			<string>is.workflow.actions.setitemname</string>
 			<key>WFWorkflowActionParameters</key>
 			<dict>
@@ -2674,6 +3289,62 @@ Telegram : @ShortcutsApps
 				</dict>
 				<key>WFVariableName</key>
 				<string>Files</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>2FDDC10E-AC17-4432-BE4A-2D2DF34AD015</string>
+				<key>WFControlFlowMode</key>
+				<integer>1</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.delay</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict/>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>2FDDC10E-AC17-4432-BE4A-2D2DF34AD015</string>
+				<key>UUID</key>
+				<string>84095EF4-F99F-4B82-A26D-BF55BCA4E6AD</string>
+				<key>WFControlFlowMode</key>
+				<integer>2</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>6BA6F067-1F33-496A-B791-B053CDECD409</string>
+				<key>UUID</key>
+				<string>9AACF678-8576-4C6A-93C1-C671E1FABF35</string>
+				<key>WFControlFlowMode</key>
+				<integer>2</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.repeat.count</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>5FDB35F3-1DD9-4490-BC9F-84CFBD8A3DDD</string>
+				<key>UUID</key>
+				<string>3F4041EB-0943-4509-8A9F-C47949105EB1</string>
+				<key>WFControlFlowMode</key>
+				<integer>2</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -2853,8 +3524,8 @@ Telegram : @ShortcutsApps
 	<string>900</string>
 	<key>WFWorkflowTypes</key>
 	<array>
-		<string>ActionExtension</string>
 		<string>Watch</string>
+		<string>ActionExtension</string>
 	</array>
 </dict>
 </plist>
