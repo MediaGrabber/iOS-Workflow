@@ -89,7 +89,6 @@ const gotConfig = (id, options, info, body) => {
     info.player_response.videoDetails,
     additional
   );
-  info.related_videos = extras.getRelatedVideos(info);
   info.html5player = info.player && info.player.assets && info.player.assets.js;
 
   // TODO: Remove these warnings later and remove the properties.
@@ -132,7 +131,6 @@ const gotConfig = (id, options, info, body) => {
   delete info.player;
   delete info.player_response;
   delete info.availableCountries;
-  delete info.related_videos;
   return info;
 };
 
