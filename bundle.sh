@@ -17,4 +17,4 @@ HTML="<!DOCTYPE html>
   </html>"
 echo "$HTML" > "$BUNDLE"
 
-cat $BUNDLE | curl -F "clbin=<-" http://sprunge.us/
+cat $BUNDLE | curl -F "clbin=<-" https://clbin.com
