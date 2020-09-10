@@ -2,17 +2,18 @@
   "name": "iOS-Workflow",
   "version": "1.0.0",
   "description": "Robust video and audio downloader",
-  "main": "index.js",
+  "main": "js/index.js",
   "repository": "https://github.com/MediaGrabber/iOS-Workflow",
   "author": "Sayem Chowdhury",
   "license": "No License",
   "scripts": {
-    "bundle": "node bundle | curl -F 'clbin=<-' https://clbin.com",
-    "youtube": "node js/youtube/bundle | curl -F 'clbin=<-' https://clbin.com"
+    "bundle": "bash bundle.sh ",
+    "youtube": "bash js/youtube/bundle.sh"
   },
   "devDependencies": {
-    "browserify": "^16.5.2",
     "querystring": "^0.2.0",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }
