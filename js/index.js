@@ -16,5 +16,9 @@ if (data.extractor) {
 } else if (data.graphql) {
   data = instagram(data);
 }
+data.title = data.title
+  .replace(/[^\x00-\x7F]/g, "")
+  .replace(/\s{2,}/g, " ")
+  .trim();
 
 document.getElementById("content").innerHTML = JSON.stringify(data);
