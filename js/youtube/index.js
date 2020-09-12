@@ -2,14 +2,12 @@ const sig = require("./sig");
 const utils = require("./utils");
 
 try {
-  const json = document
-    .getElementById("content")
-    .textContent.split("\n")
+  const json = document.getElementById("content").textContent.split("\n");
   const { streamingData, videoDetails } = JSON.parse(
     JSON.parse(json[2]).player.args.player_response
   );
 
-  const player_tokens = [ 'r', 'p1', 'r' ];
+  const player_tokens = JSON.parse(json.pop()).tokens;
   const formats = sig
     .decipherFormats(
       [...streamingData.formats, ...streamingData.adaptiveFormats],
