@@ -1,6 +1,13 @@
 const twitter = require("./twitter");
 const instagram = require("./instagram");
 
+const sanitizeTitle = (title) => {
+  return title
+    .replace(/[^\x00-\x7F]/g, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+};
+
 let data = document.getElementById("content").textContent;
 if (typeof data === "string") {
   data = JSON.parse(data);
@@ -15,12 +22,18 @@ if (data.http_headers) {
 } else if (data.graphql) {
   data = instagram(data);
 }
+
+data.title = sanitizeTitle(data.title);
 data.formats = data.formats.filter(
   (v) => v.protocol !== "m3u8_native" && v.ext !== "webm"
 );
-data.title = data.title
-  .replace(/[^\x00-\x7F]/g, "")
-  .replace(/\s{2,}/g, " ")
-  .trim();
+
+if (!data.title && data.id) {
+  if (data.user && data.user.name) {
+    data.title = sanitizeTitle(`${data.user.name} - ${data.id}`);
+  } else {
+    data.title = data.id;
+  }
+}
 
 document.getElementById("content").innerHTML = JSON.stringify(data);
