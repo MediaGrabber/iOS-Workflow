@@ -10,7 +10,7 @@
 			<key>WFWorkflowActionParameters</key>
 			<dict>
 				<key>WFCommentActionText</key>
-				<string>Version    : 2.0.0 beta 7
+				<string>Version    : 2.0.0
 Github     : @MediaGrabber
 Telegram : @ShortcutsApps
 
@@ -635,6 +635,15 @@ Telegram : @ShortcutsApps
 				<dict>
 					<key>Value</key>
 					<dict>
+						<key>Aggrandizements</key>
+						<array>
+							<dict>
+								<key>CoercionItemClass</key>
+								<string>WFStringContentItem</string>
+								<key>Type</key>
+								<string>WFCoercionVariableAggrandizement</string>
+							</dict>
+						</array>
 						<key>OutputName</key>
 						<string>Contents of URL</string>
 						<key>OutputUUID</key>
@@ -1555,7 +1564,7 @@ Telegram : @ShortcutsApps
 			<key>WFWorkflowActionParameters</key>
 			<dict>
 				<key>ShowHeaders</key>
-				<true/>
+				<false/>
 				<key>UUID</key>
 				<string>FEF3BAF6-9762-4053-A8A3-746797DBD12C</string>
 				<key>WFHTTPHeaders</key>
@@ -1614,35 +1623,7 @@ Telegram : @ShortcutsApps
 										<key>attachmentsByRange</key>
 										<dict/>
 										<key>string</key>
-										<string>7</string>
-									</dict>
-									<key>WFSerializationType</key>
-									<string>WFTextTokenString</string>
-								</dict>
-							</dict>
-							<dict>
-								<key>WFItemType</key>
-								<integer>0</integer>
-								<key>WFKey</key>
-								<dict>
-									<key>Value</key>
-									<dict>
-										<key>attachmentsByRange</key>
-										<dict/>
-										<key>string</key>
-										<string>beta</string>
-									</dict>
-									<key>WFSerializationType</key>
-									<string>WFTextTokenString</string>
-								</dict>
-								<key>WFValue</key>
-								<dict>
-									<key>Value</key>
-									<dict>
-										<key>attachmentsByRange</key>
-										<dict/>
-										<key>string</key>
-										<string>true</string>
+										<string>8</string>
 									</dict>
 									<key>WFSerializationType</key>
 									<string>WFTextTokenString</string>
@@ -1782,7 +1763,7 @@ Telegram : @ShortcutsApps
       &lt;p id=content&gt;￼&lt;/p&gt;
 
       &lt;script&gt;
-      !function(e){var t={};function i(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,i),o.l=!0,o.exports}i.m=e,i.c=t,i.d=function(e,t,r){i.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},i.r=function(e){"undefined"!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},i.t=function(e,t){if(1&amp;t&amp;&amp;(e=i(e)),8&amp;t)return e;if(4&amp;t&amp;&amp;"object"==typeof e&amp;&amp;e&amp;&amp;e.__esModule)return e;var r=Object.create(null);if(i.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&amp;t&amp;&amp;"string"!=typeof e)for(var o in e)i.d(r,o,function(t){return e[t]}.bind(null,o));return r},i.n=function(e){var t=e&amp;&amp;e.__esModule?function(){return e.default}:function(){return e};return i.d(t,"a",t),t},i.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},i.p="",i(i.s=0)}([function(e,t,i){const r=i(1),o=i(2);let n=document.getElementById("content").textContent;"string"==typeof n&amp;&amp;(n=JSON.parse(n)),n.extractor?(n.formats=n.formats.filter(e=&gt;"m3u8_native"!==e.protocol),n={...n.http_headers,...n}):n.extended_entities?(n=r(n),n["User-Agent"]="Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"):n.graphql&amp;&amp;(n=o(n)),n.title=n.title.replace(/[^\x00-\x7F]/g,"").replace(/\s{2,}/g," ").trim(),document.getElementById("content").innerHTML=JSON.stringify(n)},function(e,t){e.exports=e=&gt;{const t=e.extended_entities.media[0];return t.additional_media_info&amp;&amp;t.additional_media_info.title?e.title=t.additional_media_info.title:e.title=e.full_text.split("\n")[0].replace(/[/\\?%*:|"&lt;&gt;]/g,"-"),e.formats=t.video_info.variants.map((e,t)=&gt;{let i=e.content_type.split("/")[1],r=e.url.match(/[\d ]{2,5}[x][\d ]{2,5}/);if(r=r?r[0]:e.url.split("/").pop().split(".")[0],"mp4"===i)return{tbr:e.bitrate,protocol:"https",format:`${t} - ${r}`,url:e.url,ext:i,format_id:t}}).filter(e=&gt;e),e}},function(e,t){e.exports=e=&gt;{const t=e.graphql.shortcode_media;return e.title=t.shortcode,e.is_album=!0,t.edge_sidecar_to_children?e.formats=t.edge_sidecar_to_children.edges.map(({node:e},t)=&gt;({protocol:"https",format:`${t} - ${e.dimensions.height}x${e.dimensions.width}`,url:e.is_video?e.video_url:e.display_url,ext:e.is_video?"mp4":"jpg",format_id:t})):e.formats=[{protocol:"https",format:`0 - ${t.dimensions.height}x${t.dimensions.width}`,url:t.is_video?t.video_url:t.display_url,ext:t.is_video?"mp4":"jpg",format_id:0}],e}}]);
+      !function(e){var t={};function i(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,i),o.l=!0,o.exports}i.m=e,i.c=t,i.d=function(e,t,r){i.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},i.r=function(e){"undefined"!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},i.t=function(e,t){if(1&amp;t&amp;&amp;(e=i(e)),8&amp;t)return e;if(4&amp;t&amp;&amp;"object"==typeof e&amp;&amp;e&amp;&amp;e.__esModule)return e;var r=Object.create(null);if(i.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&amp;t&amp;&amp;"string"!=typeof e)for(var o in e)i.d(r,o,function(t){return e[t]}.bind(null,o));return r},i.n=function(e){var t=e&amp;&amp;e.__esModule?function(){return e.default}:function(){return e};return i.d(t,"a",t),t},i.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},i.p="",i(i.s=0)}([function(e,t,i){const r=i(1),o=i(2),n=e=&gt;e.replace(/[^\x00-\x7F]/g,"").replace(/\s{2,}/g," ").trim();let l=document.getElementById("content").textContent;"string"==typeof l&amp;&amp;(l=JSON.parse(l)),l.http_headers?l={...l.http_headers,...l}:l.extended_entities?(l=r(l),l["User-Agent"]="Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"):l.graphql&amp;&amp;(l=o(l)),l.title=n(l.title),l.formats=l.formats.filter(e=&gt;"m3u8_native"!==e.protocol&amp;&amp;"webm"!==e.ext),!l.title&amp;&amp;l.id&amp;&amp;(l.user&amp;&amp;l.user.name?l.title=n(`${l.user.name} - ${l.id}`):l.title=l.id),document.getElementById("content").innerHTML=JSON.stringify(l)},function(e,t){e.exports=e=&gt;{const t=e.extended_entities.media[0];return t.additional_media_info&amp;&amp;t.additional_media_info.title?e.title=t.additional_media_info.title:e.title=e.full_text.split("\n")[0].replace(/[/\\?%*:|"&lt;&gt;]/g,"-"),e.formats=t.video_info.variants.map((e,t)=&gt;{let i=e.content_type.split("/")[1],r=e.url.match(/[\d ]{2,5}[x][\d ]{2,5}/);if(r=r?r[0]:e.url.split("/").pop().split(".")[0],"mp4"===i)return{tbr:e.bitrate,protocol:"https",format:`${t} - ${r}`,url:e.url,ext:i,format_id:t}}).filter(e=&gt;e),e}},function(e,t){e.exports=e=&gt;{const t=e.graphql.shortcode_media;return e.title=t.shortcode,e.is_album=!0,t.edge_sidecar_to_children?e.formats=t.edge_sidecar_to_children.edges.map(({node:e},t)=&gt;({protocol:"https",format:`${t} - ${e.dimensions.height}x${e.dimensions.width}`,url:e.is_video?e.video_url:e.display_url,ext:e.is_video?"mp4":"jpg",format_id:t})):e.formats=[{protocol:"https",format:`0 - ${t.dimensions.height}x${t.dimensions.width}`,url:t.is_video?t.video_url:t.display_url,ext:t.is_video?"mp4":"jpg",format_id:0}],e}}]);
      &lt;/script&gt;
     &lt;/body&gt;
   &lt;/html&gt;
@@ -3697,6 +3678,106 @@ Telegram : @ShortcutsApps
 			<key>WFWorkflowActionParameters</key>
 			<dict>
 				<key>GroupingIdentifier</key>
+				<string>7B06A71F-318A-412F-9EC7-A46831DF6341</string>
+				<key>WFCondition</key>
+				<integer>100</integer>
+				<key>WFControlFlowMode</key>
+				<integer>0</integer>
+				<key>WFInput</key>
+				<dict>
+					<key>Type</key>
+					<string>Variable</string>
+					<key>Variable</key>
+					<dict>
+						<key>Value</key>
+						<dict>
+							<key>Aggrandizements</key>
+							<array>
+								<dict>
+									<key>CoercionItemClass</key>
+									<string>WFDictionaryContentItem</string>
+									<key>Type</key>
+									<string>WFCoercionVariableAggrandizement</string>
+								</dict>
+								<dict>
+									<key>DictionaryKey</key>
+									<string>mg_external_link</string>
+									<key>Type</key>
+									<string>WFDictionaryValueVariableAggrandizement</string>
+								</dict>
+							</array>
+							<key>Type</key>
+							<string>Variable</string>
+							<key>VariableName</key>
+							<string>Data</string>
+						</dict>
+						<key>WFSerializationType</key>
+						<string>WFTextTokenAttachment</string>
+					</dict>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.openurl</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>Show-WFInput</key>
+				<true/>
+				<key>WFInput</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>attachmentsByRange</key>
+						<dict>
+							<key>{0, 1}</key>
+							<dict>
+								<key>Aggrandizements</key>
+								<array>
+									<dict>
+										<key>CoercionItemClass</key>
+										<string>WFDictionaryContentItem</string>
+										<key>Type</key>
+										<string>WFCoercionVariableAggrandizement</string>
+									</dict>
+									<dict>
+										<key>DictionaryKey</key>
+										<string>mg_external_link</string>
+										<key>Type</key>
+										<string>WFDictionaryValueVariableAggrandizement</string>
+									</dict>
+								</array>
+								<key>Type</key>
+								<string>Variable</string>
+								<key>VariableName</key>
+								<string>Data</string>
+							</dict>
+						</dict>
+						<key>string</key>
+						<string>￼</string>
+					</dict>
+					<key>WFSerializationType</key>
+					<string>WFTextTokenString</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
+				<string>7B06A71F-318A-412F-9EC7-A46831DF6341</string>
+				<key>WFControlFlowMode</key>
+				<integer>2</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>WFWorkflowActionIdentifier</key>
+			<string>is.workflow.actions.conditional</string>
+			<key>WFWorkflowActionParameters</key>
+			<dict>
+				<key>GroupingIdentifier</key>
 				<string>8AFB2457-CF56-4CC5-ABBE-0E561DCF7004</string>
 				<key>WFControlFlowMode</key>
 				<integer>1</integer>
@@ -3751,8 +3832,8 @@ Telegram : @ShortcutsApps
 	<string>900</string>
 	<key>WFWorkflowTypes</key>
 	<array>
-		<string>Watch</string>
 		<string>ActionExtension</string>
+		<string>Watch</string>
 	</array>
 </dict>
 </plist>
