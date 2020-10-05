@@ -6,8 +6,7 @@ if (typeof data === "string") {
   data = JSON.parse(data);
 }
 
-if (data.extractor) {
-  data.formats = data.formats.filter((v) => v.protocol !== "m3u8_native");
+if (data.http_headers) {
   data = { ...data.http_headers, ...data };
 } else if (data.extended_entities) {
   data = twitter(data);
@@ -16,6 +15,9 @@ if (data.extractor) {
 } else if (data.graphql) {
   data = instagram(data);
 }
+data.formats = data.formats.filter(
+  (v) => v.protocol !== "m3u8_native" && v.ext !== "webm"
+);
 data.title = data.title
   .replace(/[^\x00-\x7F]/g, "")
   .replace(/\s{2,}/g, " ")
